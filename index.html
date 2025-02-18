@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airline Owner Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        .admin-section {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="date"],
+        input[type="time"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            padding: 8px;
+            background-color: #f4f4f4;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        h3 {
+            margin-top: 20px;
+        }
+
+        #analytics-results,
+        #market-trends-results,
+        #customer-segmentation-results,
+        #report-content {
+            margin-top: 20px;
+            background-color: #e9f5e9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #total-revenue,
+        #total-expenses,
+        #net-profit-loss,
+        #dynamic-price,
+        #current-status {
+            font-weight: bold;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .signup-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .signup-form {
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 400px;
+        }
+
+        .signup-form input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .signup-form button {
+            width: 100%;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            text-decoration: none;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Signup Page -->
+<div class="signup-section" id="signup-section">
+    <div class="signup-form">
+        <h2>Signup for Airline Owner Dashboard</h2>
+        <div class="form-group">
+            <label for="signup-name">Full Name:</label>
+            <input type="text" id="signup-name" placeholder="Enter Full Name">
+        </div>
+        <div class="form-group">
+            <label for="signup-email">Email Address:</label>
+            <input type="email" id="signup-email" placeholder="Enter Email Address">
+        </div>
+        <div class="form-group">
+            <label for="signup-password">Password:</label>
+            <input type="password" id="signup-password" placeholder="Enter Password">
+        </div>
+        <button onclick="signup()">Signup</button>
+        <div class="login-link">
+            <p>Already have an account? <a href="#" onclick="showLogin()">Login here</a></p>
+        </div>
+    </div>
+</div>
+
+
+<!-- Owner Dashboard (Initially Hidden) -->
+<div class="container" id="dashboard-section" style="display: none;">
+    <h1>Airline Owner Dashboard</h1>
+
+    <!-- Owner Profile Management -->
+    <div class="admin-section">
+        <h2>Owner Profile</h2>
+        <div class="form-group">
+            <label for="owner-name">Owner Name:</label>
+            <input type="text" id="owner-name" placeholder="Enter Owner Name">
+        </div>
+        <div class="form-group">
+            <label for="owner-email">Owner Email:</label>
+            <input type="email" id="owner-email" placeholder="Enter Owner Email">
+        </div>
+        <div class="form-group">
+            <label for="owner-phone">Owner Phone:</label>
+            <input type="tel" id="owner-phone" placeholder="Enter Owner Phone Number">
+        </div>
+        <button onclick="saveProfile()">Save Profile</button>
+    </div>
+
+    <!-- Revenue Tracking -->
+    <div class="admin-section">
+        <h2>Revenue Tracking</h2>
+        <div class="form-group">
+            <label for="ticket-revenue">Ticket Revenue:</label>
+            <input type="number" id="ticket-revenue" placeholder="Enter Ticket Revenue">
+        </div>
+        <div class="form-group">
+            <label for="extra-revenue">Extra Services Revenue:</label>
+            <input type="number" id="extra-revenue" placeholder="Enter Revenue from Extra Services">
+        </div>
+        <div class="form-group">
+            <label for="loyalty-revenue">Loyalty Program Revenue:</label>
+            <input type="number" id="loyalty-revenue" placeholder="Enter Revenue from Loyalty Programs">
+        </div>
+        <button onclick="addRevenue()">Add Revenue</button>
+        <h3>Total Revenue</h3>
+        <p id="total-revenue">$0</p>
+    </div>
+
+    <!-- Revenue and Expense Analytics -->
+    <div class="admin-section">
+        <h2>Revenue and Expense Analytics</h2>
+        <button onclick="analyzeRevenueAndExpense()">Analyze Revenue & Expense</button>
+        <div id="analytics-results"></div>
+    </div>
+
+    <!-- Dynamic Pricing -->
+    <div class="admin-section">
+        <h2>Dynamic Pricing</h2>
+        <div class="form-group">
+            <label for="route">Select Route:</label>
+            <select id="route">
+                <!-- Routes should be dynamically populated here -->
+                <option value="Route1">Route 1</option>
+                <option value="Route2">Route 2</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="base-price">Base Price:</label>
+            <input type="number" id="base-price" placeholder="Enter Base Price">
+        </div>
+        <div class="form-group">
+            <label for="pricing-factor">Demand Factor:</label>
+            <input type="number" id="pricing-factor" placeholder="Enter Demand Factor (0.5 - 2)">
+        </div>
+        <button onclick="setDynamicPricing()">Set Dynamic Pricing</button>
+        <h3>Dynamic Price:</h3>
+        <p id="dynamic-price">$0</p>
+    </div>
+
+    <!-- CSV Data Display Section -->
+    <div id="csv-data">
+        <h3>CSV Data:</h3>
+        <ul id="data-list"></ul>
+    </div>
+
+    <!-- Expense Tracking -->
+    <div class="admin-section">
+        <h2>Expense Tracking</h2>
+        <div class="form-group">
+            <label for="maintenance-expense">Maintenance Expenses:</label>
+            <input type="number" id="maintenance-expense" placeholder="Enter Maintenance Expenses">
+        </div>
+        <div class="form-group">
+            <label for="staff-expense">Staff Salaries:</label>
+            <input type="number" id="staff-expense" placeholder="Enter Staff Salaries">
+        </div>
+        <div class="form-group">
+            <label for="airport-fee">Airport Fees:</label>
+            <input type="number" id="airport-fee" placeholder="Enter Airport Fees">
+        </div>
+        <button onclick="addExpense()">Add Expense</button>
+        <h3>Total Expenses</h3>
+        <p id="total-expenses">$0</p>
+    </div>
+
+    <!-- Profit and Loss Overview -->
+    <div class="admin-section">
+        <h2>Profit & Loss Overview</h2>
+        <p>Net Profit/Loss</p>
+        <p id="net-profit-loss">0</p>
+    </div>
+
+    <!-- Flight Scheduling and Optimization -->
+    <div class="admin-section">
+        <h2>Schedule Flights</h2>
+        <div class="form-group">
+            <label for="schedule-route">Select Route:</label>
+            <select id="schedule-route">
+                <option value="Route1">Route 1</option>
+                <option value="Route2">Route 2</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="flight-date">Flight Date:</label>
+            <input type="date" id="flight-date">
+        </div>
+        <div class="form-group">
+            <label for="flight-time">Flight Time:</label>
+            <input type="time" id="flight-time">
+        </div>
+        <button onclick="addFlightSchedule()">Add Flight Schedule</button>
+        <h3>Scheduled Flights</h3>
+        <ul id="schedule-list"></ul>
+    </div>
+    <div class="admin-section">
+        <button onclick="saveDataToCSV()">Save Data to CSV</button>
+    </div>
+</div>
+
+<script>
+
+// Handle Signup
+function signup() {
+    const name = document.getElementById('signup-name').value;
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
+
+    if (name && email && password) {
+        alert(`Signup Successful! Welcome ${name}`);
+        showDashboard();
+    } else {
+        alert('Please fill out all fields.');
+    }
+}
+
+// Show Dashboard after successful Signup
+function showDashboard() {
+    document.getElementById('signup-section').style.display = 'none';
+    document.getElementById('dashboard-section').style.display = 'block';
+}
+
+// Show Login (Switch to login page from signup page)
+function showLogin() {
+    alert("Redirect to Login Page (You can add a login form here later).");
+}
+
+// Initialize variables to store values
+let totalRevenue = 0;
+let totalExpenses = 0;
+let scheduledFlights = [];
+
+// Save Owner Profile
+function saveProfile() {
+    const ownerName = document.getElementById('owner-name').value;
+    const ownerEmail = document.getElementById('owner-email').value;
+    const ownerPhone = document.getElementById('owner-phone').value;
+
+    if (ownerName && ownerEmail && ownerPhone) {
+        alert(`Profile Saved for: ${ownerName}`);
+    } else {
+        alert('Please fill out all fields.');
+    }
+}
+
+// Add Revenue
+function addRevenue() {
+    const ticketRevenue = parseFloat(document.getElementById('ticket-revenue').value) || 0;
+    const extraRevenue = parseFloat(document.getElementById('extra-revenue').value) || 0;
+    const loyaltyRevenue = parseFloat(document.getElementById('loyalty-revenue').value) || 0;
+
+    totalRevenue += ticketRevenue + extraRevenue + loyaltyRevenue;
+    document.getElementById('total-revenue').innerText = `$${totalRevenue.toFixed(2)}`;
+}
+
+// Analyze Revenue and Expenses
+function analyzeRevenueAndExpense() {
+    const profitLoss = totalRevenue - totalExpenses;
+    document.getElementById('analytics-results').innerText = `Profit/Loss: $${profitLoss.toFixed(2)}`;
+}
+
+// Set Dynamic Pricing
+function setDynamicPricing() {
+    const basePrice = parseFloat(document.getElementById('base-price').value) || 0;
+    const pricingFactor = parseFloat(document.getElementById('pricing-factor').value) || 1;
+    const dynamicPrice = basePrice * pricingFactor;
+
+    document.getElementById('dynamic-price').innerText = `$${dynamicPrice.toFixed(2)}`;
+}
+
+// Add Expense
+function addExpense() {
+    const maintenanceExpense = parseFloat(document.getElementById('maintenance-expense').value) || 0;
+    const staffExpense = parseFloat(document.getElementById('staff-expense').value) || 0;
+    const airportFee = parseFloat(document.getElementById('airport-fee').value) || 0;
+
+    totalExpenses += maintenanceExpense + staffExpense + airportFee;
+    document.getElementById('total-expenses').innerText = `$${totalExpenses.toFixed(2)}`;
+    const profitLoss = totalRevenue - totalExpenses;
+    document.getElementById('net-profit-loss').innerText = `$${profitLoss.toFixed(2)}`;
+}
+
+// Add Flight Schedule
+function addFlightSchedule() {
+    const route = document.getElementById('schedule-route').value;
+    const date = document.getElementById('flight-date').value;
+    const time = document.getElementById('flight-time').value;
+    const flightInfo = `Route: ${route}, Date: ${date}, Time: ${time}`;
+
+    scheduledFlights.push(flightInfo);
+    document.getElementById('schedule-list').innerHTML = scheduledFlights.map(flight => `<li>${flight}</li>`).join('');
+}
+// Collect data and generate CSV
+function saveDataToCSV() {
+    // Collect relevant data to be exported
+    const ownerName = document.getElementById('owner-name').value || 'N/A';
+    const ownerEmail = document.getElementById('owner-email').value || 'N/A';
+    const ownerPhone = document.getElementById('owner-phone').value || 'N/A';
+
+    const ticketRevenue = parseFloat(document.getElementById('ticket-revenue').value) || 0;
+    const extraRevenue = parseFloat(document.getElementById('extra-revenue').value) || 0;
+    const loyaltyRevenue = parseFloat(document.getElementById('loyalty-revenue').value) || 0;
+
+    const maintenanceExpense = parseFloat(document.getElementById('maintenance-expense').value) || 0;
+    const staffExpense = parseFloat(document.getElementById('staff-expense').value) || 0;
+    const airportFee = parseFloat(document.getElementById('airport-fee').value) || 0;
+
+    const totalRevenue = ticketRevenue + extraRevenue + loyaltyRevenue;
+    const totalExpenses = maintenanceExpense + staffExpense + airportFee;
+    const netProfitLoss = totalRevenue - totalExpenses;
+
+    // Create CSV content
+    const csvContent = [
+        ["Owner Name", "Owner Email", "Owner Phone", "Ticket Revenue", "Extra Revenue", "Loyalty Revenue", "Maintenance Expense", "Staff Expense", "Airport Fee", "Total Revenue", "Total Expenses", "Net Profit/Loss"],
+        [ownerName, ownerEmail, ownerPhone, ticketRevenue, extraRevenue, loyaltyRevenue, maintenanceExpense, staffExpense, airportFee, totalRevenue, totalExpenses, netProfitLoss]
+    ];
+
+    // Convert CSV content to string
+    const csvString = csvContent.map(row => row.join(",")).join("\n");
+
+    // Create a downloadable link
+    const link = document.createElement('a');
+    link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvString));
+    link.setAttribute('download', 'airline_data.csv');
+    link.click();
+}
+
+</script>
+
+</body>
+</html>
