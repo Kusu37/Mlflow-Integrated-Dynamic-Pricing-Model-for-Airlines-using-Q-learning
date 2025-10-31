@@ -1,8 +1,7 @@
 # MLflow-Integrated Dynamic Pricing Model for Airlines using Q-learning
 
-**Author**: Kusuma  
-**Date**: [Insert creation date]  
-**Project type**: Final-year / Internship project  
+**Author**: Kusuma K
+**Project type**: Internship project  
 **Domain**: Airline revenue management / dynamic pricing / reinforcement learning
 
 ## Project Overview  
